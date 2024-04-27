@@ -1,0 +1,15 @@
+package system.colluagemanagement.dtos;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+public class DepartmentDto {
+
+    private String name;
+    private String facultyId;
+}
