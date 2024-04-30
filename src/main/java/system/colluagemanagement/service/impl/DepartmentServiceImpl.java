@@ -56,9 +56,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public String addDepartment(DepartmentDto departmentDto) {
-        Optional<Faculty> faculty = facultyRepository.findById(Long.parseLong(departmentDto.getFacultyId()));
-        if (faculty.isEmpty()){
-            logger.log(DepartmentMessage.NOT_FOUND, HttpStatus.BAD_REQUEST);
+        Optional<Faculty> faculty = facultyRepository.findById(Long.valueOf(departmentDto.getFacultyId()));
+        if (!faculty.isPresent()){
+            logger.log(FacultyMessage.NOT_FOUND, HttpStatus.BAD_REQUEST);
         }
             Department department = Department.builder()
                     .name(departmentDto.getName())
@@ -74,7 +74,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public String updateDepartment(Long id, DepartmentDto departmentDto) {
         Optional<Department> department = departmentRepository.findById(id);
-        if (department.isEmpty()){
+        if (!department.isPresent()){
             logger.log(DepartmentMessage.NOT_FOUND, HttpStatus.BAD_REQUEST);
         }
         department.get().setName(departmentDto.getName());
@@ -84,7 +84,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public String deleteDepartment(Long id) {
-        return "";
+        Optional<Department> department = departmentRepository.findById(id);
+        if (!department.isPresent()) {
+            logger.log(DepartmentMessage.NOT_FOUND, HttpStatus.BAD_REQUEST);
+        }
+        departmentRepository.deleteById(id);
+        return DepartmentMessage.DELETE + id;
     }
 }
 

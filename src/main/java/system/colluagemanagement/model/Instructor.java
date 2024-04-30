@@ -29,8 +29,8 @@ public class Instructor  {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "phone")
+    private String phone;
 
     @OneToMany(mappedBy = "instructor")
     private List<Lesson> lessons;
@@ -38,5 +38,4 @@ public class Instructor  {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-
 }

@@ -63,7 +63,7 @@ public class  FacultyServiceImpl implements FacultyService {
     @Override
     public String updateFaculty(Long id, FacultyDto facultyDto) {
         Optional<Faculty> faculty = facultyRepository.findById(id);
-        if (faculty.isEmpty()) {
+        if (!faculty.isPresent()) {
             logger.log(FacultyMessage.NOT_FOUND + id,HttpStatus.BAD_REQUEST);
         }
 
