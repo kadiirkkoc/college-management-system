@@ -51,8 +51,10 @@ public class SecurityConfiguration {
     }
 
     @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -61,7 +63,13 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/faculty/add").hasAuthority(UserRole.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.GET , "/faculty" , "/department" , "/lesson", "/instructor" , "/student/").hasAnyAuthority(UserRole.ADMIN.getAuthority() , UserRole.INSTRUCTOR.getAuthority() ,UserRole.STUDENT.getAuthority())
+                        .requestMatchers(HttpMethod.POST, "/faculty","/student","/instructor","/department","/lesson").hasAuthority(UserRole.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.PUT,"/instructor/").hasAnyAuthority(UserRole.ADMIN.getAuthority(),UserRole.INSTRUCTOR.getAuthority())
+                        .requestMatchers(HttpMethod.PUT,"/student/").hasAnyAuthority(UserRole.ADMIN.getAuthority(),UserRole.STUDENT.getAuthority())
+                        .requestMatchers(HttpMethod.PUT, "/faculty" , "/department").hasAuthority(UserRole.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.PUT, "/lesson").hasAnyAuthority(UserRole.ADMIN.getAuthority(),UserRole.INSTRUCTOR.getAuthority())
+                        .requestMatchers(HttpMethod.DELETE,"/faculty" , "/department" , "/lesson", "/instructor" , "/student/").hasAuthority(UserRole.ADMIN.getAuthority())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -69,7 +77,4 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
-
-
 }

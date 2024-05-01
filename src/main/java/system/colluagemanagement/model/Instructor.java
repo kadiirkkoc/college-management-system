@@ -32,6 +32,10 @@ public class Instructor  {
     @Column(name = "password")
     private String password;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 

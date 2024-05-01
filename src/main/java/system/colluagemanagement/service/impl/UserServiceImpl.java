@@ -2,8 +2,13 @@ package system.colluagemanagement.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import system.colluagemanagement.beans.AuthenticationResponse;
@@ -52,14 +57,28 @@ public class UserServiceImpl{
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.email(),request.password())
-        );
-        var user = userRepository.findByEmail(request.email());
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.email(), request.password())
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(token)
-                .build();
+            Optional<User> userOptional = userRepository.findByEmail(request.email());
+            if (!userOptional.isPresent()) {
+                log.error("No user found with email: " + request.email());
+                throw new UsernameNotFoundException("No user found with email: " + request.email());
+            }
+
+            String token = jwtService.generateToken(userOptional);
+            return AuthenticationResponse.builder()
+                    .token(token)
+                    .build();
+
+        } catch (AuthenticationException ex) {
+            log.error("Authentication failed: " + ex.getMessage());
+            throw new BadCredentialsException("Incorrect username or password");
+        }
     }
+
+
 }

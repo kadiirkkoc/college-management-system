@@ -18,11 +18,6 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String welcome(){
-        return  "hello welcome";
-    }
-
     @PostMapping("/registration")
     public ResponseEntity<AuthenticationResponse> registration(@RequestBody UserDto userDto){
         return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.CREATED);
@@ -33,13 +28,4 @@ public class AuthenticationController {
         return new ResponseEntity<>(userService.authenticate(authRequest), HttpStatus.CREATED);
     }
 
-    @GetMapping("/user")
-    public String getUserString(){
-        return "this is USER";
-    }
-
-    @GetMapping("/admin")
-    public String getAdminString(){
-        return "this is ADMIN";
-    }
 }
