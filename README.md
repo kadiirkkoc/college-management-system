@@ -13,7 +13,7 @@ Welcome to the College Management System documentation. This system is designed 
 -Introduction
 -The College Management System is a comprehensive web application built using Spring Boot and Maven. It provides functionalities to manage students, courses, faculty, and administrative tasks within a college environment. This system aims to automate and simplify various processes, thus enhancing productivity and organization.
 
-##Features
+## Features
 -Faculty Management: Add, update, and delete faculty records.
 -Department Management: Add, update, and delete department records.
 -Instructor Management: Add, update, and delete instructor records.
@@ -21,14 +21,14 @@ Welcome to the College Management System documentation. This system is designed 
 -Course Management: Manage courses offered by the college.
 -Grade Management: Manage student grades and academic performance.
 
-##Prerequisites
+## Prerequisites
 Before getting started with the installation, ensure you have the following prerequisites:
 
 -Java 8 or higher installed.
 -Maven installed.
 -PostgreSQL or any other compatible database management system installed.
 
-##Installation
+## Installation
 Clone the repository:
 
 bash
@@ -53,7 +53,7 @@ Configuration
 Database Configuration
 Configure your database connection settings in the application.properties file:
 
-properties
+## properties
 Copy code
 spring.datasource.url=jdbc:mysql://localhost:3306/college_db
 spring.datasource.username=username
@@ -63,12 +63,11 @@ spring.jpa.hibernate.ddl-auto=update
 Security Configuration
 Configure security settings such as authentication and authorization in the SecurityConfig.java file.
 
-Usage
+## Usage
 Once the application is up and running, you can access it via the following URL:
 
-plaintext
 Copy code
-http://localhost:8080
+http://localhost:8087
 From there, you can log in with the appropriate credentials (if authentication is enabled) and start using the various functionalities of the College Management System.
 
 Endpoints
