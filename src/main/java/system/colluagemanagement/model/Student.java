@@ -29,11 +29,14 @@ public class Student {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "role")
-    private String role;
-
     @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @Column(name = "year")
     private String semester;

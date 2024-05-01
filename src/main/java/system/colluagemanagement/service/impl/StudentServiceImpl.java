@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import system.colluagemanagement.dtos.StudentDto;
 import system.colluagemanagement.loggers.MainLogger;
 import system.colluagemanagement.loggers.messages.DepartmentMessage;
-import system.colluagemanagement.loggers.messages.LessonMessage;
 import system.colluagemanagement.loggers.messages.StudentMessage;
 import system.colluagemanagement.model.Department;
 import system.colluagemanagement.model.Lesson;
