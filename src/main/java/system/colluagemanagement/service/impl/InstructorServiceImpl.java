@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import system.colluagemanagement.dtos.DepartmentDto;
 import system.colluagemanagement.dtos.FacultyDto;
@@ -11,13 +12,11 @@ import system.colluagemanagement.dtos.InstructorDto;
 import system.colluagemanagement.loggers.MainLogger;
 import system.colluagemanagement.loggers.messages.DepartmentMessage;
 import system.colluagemanagement.loggers.messages.InstructorMessage;
-import system.colluagemanagement.model.Department;
-import system.colluagemanagement.model.Faculty;
-import system.colluagemanagement.model.Instructor;
-import system.colluagemanagement.model.Lesson;
+import system.colluagemanagement.model.*;
 import system.colluagemanagement.repository.DepartmentRepository;
 import system.colluagemanagement.repository.InstructorRepository;
 import system.colluagemanagement.repository.LessonRepository;
+import system.colluagemanagement.repository.UserRepository;
 import system.colluagemanagement.service.InstructorService;
 
 import java.util.List;
@@ -33,12 +32,17 @@ public class InstructorServiceImpl implements InstructorService {
     private final MainLogger logger = new MainLogger(InstructorServiceImpl.class);
     private final DepartmentRepository departmentRepository;
     private final LessonRepository lessonRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-    public InstructorServiceImpl(InstructorRepository instructorRepository, DepartmentRepository departmentRepository, LessonRepository lessonRepository) {
+    public InstructorServiceImpl(InstructorRepository instructorRepository, DepartmentRepository departmentRepository, LessonRepository lessonRepository, BCryptPasswordEncoder passwordEncoder ,UserRepository userRepository) {
         this.instructorRepository = instructorRepository;
         this.departmentRepository = departmentRepository;
         this.lessonRepository = lessonRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
+
 
     @Override
     public List<InstructorDto> getAll() {
@@ -69,9 +73,18 @@ public class InstructorServiceImpl implements InstructorService {
     public String addInstructor(InstructorDto instructorDto) {
         Optional<Department> department = departmentRepository.findById(Long.valueOf(instructorDto.getDepartmentId()));
         if (!department.isPresent()){
-            logger.log(DepartmentMessage.NOT_FOUND,HttpStatus.BAD_REQUEST);
+            return DepartmentMessage.NOT_FOUND;
         }
+
+        User newUser = User.builder()
+                .email(instructorDto.getEmail())
+                .password(passwordEncoder.encode(instructorDto.getPassword()))
+                .userRole(UserRole.INSTRUCTOR)
+                .build();
+        userRepository.save(newUser);
+
         Instructor instructor = Instructor.builder()
+                .user(newUser)
                 .name(instructorDto.getName())
                 .email(instructorDto.getEmail())
                 .phone(instructorDto.getPhone())
@@ -80,6 +93,8 @@ public class InstructorServiceImpl implements InstructorService {
         instructor = instructorRepository.save(instructor);
         return InstructorMessage.CREATE + instructor.getId();
     }
+
+
 
     @Override
     public String updateInstructor(Long id, InstructorDto instructorDto) {
@@ -90,6 +105,7 @@ public class InstructorServiceImpl implements InstructorService {
         instructor.get().setName(instructorDto.getName());
         instructor.get().setEmail(instructorDto.getEmail());
         instructor.get().setPhone(instructorDto.getPhone());
+        instructor.get().setPassword(passwordEncoder.encode(instructorDto.getPassword()));
         instructorRepository.save(instructor.get());
 
         return InstructorMessage.UPDATE + instructor.get().getId();

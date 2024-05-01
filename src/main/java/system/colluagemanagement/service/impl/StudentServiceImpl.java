@@ -1,17 +1,17 @@
 package system.colluagemanagement.service.impl;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import system.colluagemanagement.dtos.StudentDto;
 import system.colluagemanagement.loggers.MainLogger;
 import system.colluagemanagement.loggers.messages.DepartmentMessage;
 import system.colluagemanagement.loggers.messages.StudentMessage;
-import system.colluagemanagement.model.Department;
-import system.colluagemanagement.model.Lesson;
-import system.colluagemanagement.model.Student;
+import system.colluagemanagement.model.*;
 import system.colluagemanagement.repository.DepartmentRepository;
 import system.colluagemanagement.repository.LessonRepository;
 import system.colluagemanagement.repository.StudentRepository;
+import system.colluagemanagement.repository.UserRepository;
 import system.colluagemanagement.service.StudentService;
 
 import java.util.*;
@@ -24,12 +24,17 @@ public class StudentServiceImpl implements StudentService {
     private final DepartmentRepository departmentRepository;
     private final LessonRepository lessonRepository;
     private final MainLogger logger = new MainLogger(LessonServiceImpl.class);
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public StudentServiceImpl(StudentRepository studentRepository, DepartmentRepository departmentRepository, LessonRepository lessonRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository, DepartmentRepository departmentRepository, LessonRepository lessonRepository, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.studentRepository = studentRepository;
         this.departmentRepository = departmentRepository;
         this.lessonRepository = lessonRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = bCryptPasswordEncoder;
     }
+
 
     @Override
     public List<StudentDto> getAll() {
@@ -67,6 +72,13 @@ public class StudentServiceImpl implements StudentService {
             return DepartmentMessage.NOT_FOUND + studentDto.getDepartmentId();
         }
 
+        User newUser = User.builder()
+                .email(studentDto.getEmail())
+                .password(passwordEncoder.encode(studentDto.getPassword()))
+                .userRole(UserRole.INSTRUCTOR)
+                .build();
+        userRepository.save(newUser);
+
         Student student = Student.builder()
                 .firstName(studentDto.getFirstName())
                 .lastName(studentDto.getLastName())
@@ -74,6 +86,7 @@ public class StudentServiceImpl implements StudentService {
                 .semester(studentDto.getSemester())
                 .phoneNumber(studentDto.getPhoneNumber())
                 .uuid(UUID.randomUUID().toString())
+                .userRole(UserRole.valueOf("STUDENT"))
                 .build();
 
 

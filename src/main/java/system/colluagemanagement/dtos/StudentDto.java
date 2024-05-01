@@ -17,6 +17,7 @@ public class StudentDto {
     private String email;
     private String semester;
     private String phoneNumber;
+    private String password;
     private Long departmentId;
     private List<Long> lessonIds;
 }
