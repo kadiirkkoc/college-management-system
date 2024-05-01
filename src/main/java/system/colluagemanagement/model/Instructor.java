@@ -29,6 +29,12 @@ public class Instructor  {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
     @Column(name = "phone")
     private String phone;
 

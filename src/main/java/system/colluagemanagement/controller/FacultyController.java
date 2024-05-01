@@ -28,7 +28,7 @@ public class FacultyController {
         return new ResponseEntity<>(facultyService.getById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<String> addFaculty(@RequestBody FacultyDto facultyDto) {
         return new ResponseEntity<>(facultyService.addFaculty(facultyDto), HttpStatus.CREATED);
     }
