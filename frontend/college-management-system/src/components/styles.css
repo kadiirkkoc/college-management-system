@@ -1,0 +1,117 @@
+/* Styling the body to use Flexbox */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    background-color: #f4f4f9; /* Light grey background */
+    font-family: Arial, sans-serif;
+}
+
+/* Styling the entire form */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(255, 0, 0, 0.1);
+    background: white;
+    width: 300px; /* Fixed width */
+}
+
+/* Styling each input field */
+.input-field {
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+}
+
+.input-field:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Styling the submit button */
+.submit-button {
+    padding: 16px 15px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.message {
+    margin-top: 20px;
+    color: red; /* Red color for errors by default */
+    text-align: center;
+}
+
+/* Additional styles for success messages if needed */
+.message.success {
+    color: green;
+}
+
+/* General body styling */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    background-color: #f4f4f9; /* Background color */
+}
+
+/* Container styling */
+.signin-container {
+    width: 100%; /* Full width */
+    padding: 20px; /* Padding around the form */
+}
+
+/* Styling the sign-in form */
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Space between form elements */
+}
+
+/* Styling email input */
+.email-input {
+    width: 80%; /* Relative width */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Styling password input */
+.password-input {
+    width: 80%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Styling the sign-in button */
+.signin-button {
+    width: 85%;
+    padding: 10px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signin-button:hover {
+    background-color: #0056b3;
+}
