@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './/styles.css'; // Corrected import path
+import { useNavigate } from 'react-router-dom'; 
+import '../../style/styles.css';
 
 function SignUp() {
     const [formData, setFormData] = useState({
@@ -11,7 +12,9 @@ function SignUp() {
         userRole: 'ADMIN'
     });
 
-    const [message, setMessage] = useState(''); // State to hold messages for the user
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -23,7 +26,7 @@ function SignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setMessage(''); // Clear previous messages
+        setMessage('');
         try {
             const response = await fetch('http://localhost:8087/auth/registration', {
                 method: 'POST',
@@ -36,6 +39,7 @@ function SignUp() {
             if (response.ok) {
                 setMessage('Registration successful! Welcome, ' + data.firstName + '!');
                 console.log('Registration successful:', data);
+                navigate('/signin');
             } else {
                 throw new Error(data.message || 'Failed to register');
             }
@@ -90,7 +94,7 @@ function SignUp() {
                 />
                 <button type="submit" className="submit-button">Sign Up</button>
             </form>
-            {message && <p className="message">{message}</p>} {/* Display messages */}
+            {message && <p className="message">{message}</p>} 
         </div>
     );
 }
