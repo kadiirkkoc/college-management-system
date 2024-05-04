@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import system.collegemanagement.model.UserRole;
 
 @Data
 @AllArgsConstructor
@@ -13,4 +14,5 @@ import lombok.NoArgsConstructor;
 public class AuthenticationResponse {
 
     private String token;
+    private UserRole userRole;
 }

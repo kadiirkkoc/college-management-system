@@ -30,6 +30,7 @@ public class  FacultyServiceImpl implements FacultyService {
     public List<FacultyDto> getAll() {
         return facultyRepository.findAll().stream()
                 .map(faculty -> FacultyDto.builder()
+                        .id(faculty.getId())
                         .name(faculty.getName())
                         .campus(faculty.getCampus())
                         .build()).collect(Collectors.toList());
