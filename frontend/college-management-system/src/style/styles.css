@@ -1,16 +1,15 @@
-/* Styling the body to use Flexbox */
+
 body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100vh; /* Full viewport height */
-    background-color: #f4f4f9; /* Light grey background */
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    background-color: #f4f4f9; 
     font-family: Arial, sans-serif;
 }
 
-/* Styling the entire form */
 .signup-form {
     display: flex;
     flex-direction: column;
@@ -20,10 +19,9 @@ body {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(255, 0, 0, 0.1);
     background: white;
-    width: 300px; /* Fixed width */
+    width: 300px; 
 }
 
-/* Styling each input field */
 .input-field {
     padding: 16px;
     border: 1px solid #ccc;
@@ -36,7 +34,6 @@ body {
     outline: none;
 }
 
-/* Styling the submit button */
 .submit-button {
     padding: 16px 15px;
     color: white;
@@ -53,47 +50,41 @@ body {
 
 .message {
     margin-top: 20px;
-    color: red; /* Red color for errors by default */
+    color: red; 
     text-align: center;
 }
 
-/* Additional styles for success messages if needed */
 .message.success {
     color: green;
 }
 
-/* General body styling */
 body, html {
     height: 100%;
     margin: 0;
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    background-color: #f4f4f9; /* Background color */
+    justify-content: center; 
+    background-color: #f4f4f9; 
 }
 
-/* Container styling */
 .signin-container {
-    width: 100%; /* Full width */
-    padding: 20px; /* Padding around the form */
+    width: 100%; 
+    padding: 20px; 
 }
 
-/* Styling the sign-in form */
 .signin-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px; /* Space between form elements */
+    gap: 10px; 
 }
 
-/* Styling email input */
 .email-input {
-    width: 80%; /* Relative width */
+    width: 80%;
     padding: 8px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
-/* Styling password input */
 .password-input {
     width: 80%;
     padding: 8px;
@@ -101,7 +92,6 @@ body, html {
     border: 1px solid #ccc;
 }
 
-/* Styling the sign-in button */
 .signin-button {
     width: 85%;
     padding: 10px;
@@ -115,3 +105,32 @@ body, html {
 .signin-button:hover {
     background-color: #0056b3;
 }
+
+.main-layout {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+  
+  .header {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    height: calc(100vh - 60px); /* Adjust based on header height */
+    overflow-y: auto;
+  }
+  
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
