@@ -26,6 +26,7 @@ function SignIn() {
             const response = await fetch('http://localhost:8087/auth/login', {
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
@@ -33,18 +34,18 @@ function SignIn() {
             const data = await response.json();
             if (response.ok) {
                 console.log('Login successful:', data);
-                localStorage.setItem('token', data.token);  
+                localStorage.setItem('token', data.token);      
                 localStorage.setItem('userRole', data.userRole);  
     
                 switch (data.userRole) {
                     case 'ADMIN':
-                        navigate('/admin');
-                        break;
-                    case 'INSTRUCTOR':
-                        navigate('/instructor');
+                        navigate('/admin-dashboard');
                         break;
                     case 'STUDENT':
-                        navigate('/student');
+                        navigate('/student-dashboard');
+                        break;
+                    case 'INSTRUCTOR':
+                        navigate('/instructor-dashboard');
                         break;
                     default:
                         setError('Unauthorized access');
