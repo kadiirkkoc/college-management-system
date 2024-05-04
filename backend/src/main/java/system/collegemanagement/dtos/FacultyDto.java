@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class FacultyDto {
 
+    private Long id;
     private String name;
     private String campus;
 }

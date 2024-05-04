@@ -70,6 +70,7 @@ public class UserServiceImpl{
             String token = jwtService.generateToken(userOptional);
             return AuthenticationResponse.builder()
                     .token(token)
+                    .userRole(userRepository.findByEmail(request.email()).get().getUserRole())
                     .build();
 
         } catch (AuthenticationException ex) {
