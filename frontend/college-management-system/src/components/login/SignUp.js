@@ -39,6 +39,7 @@ function SignUp() {
             if (response.ok) {
                 setMessage('Registration successful! Welcome, ' + data.firstName + '!');
                 console.log('Registration successful:', data);
+                localStorage.setItem('token', data.token);  // Storing the token
                 navigate('/signin');
             } else {
                 throw new Error(data.message || 'Failed to register');

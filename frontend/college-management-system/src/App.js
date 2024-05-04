@@ -2,9 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignIn from './components/login/SignIn';
 import SignUp from './components/login/SignUp';
-import AdminMainPage from './components/main-pages/AdminMainPage';
-import InstructorMainPage from './components/main-pages/InstructorMainPage';
-import StudentMainPage from './components/main-pages/StudentMainPage';
+import AdminDashboard from './components/dashboards/AdminDashboard';
+import StudentDashboard from './components/dashboards/StudentDashboard';
+import InstructorDashboard from './components/dashboards/InstructorDashboard';
+import FacultyDashboard from './components/pages/FacultyDashboard';
+
+
 
 function App() {
   return (
@@ -13,9 +16,11 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/admin" element={<AdminMainPage />} />
-          <Route path="/instructor" element={<InstructorMainPage />} />
-          <Route path="/student" element={<StudentMainPage />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
+          <Route path="/student-dashboard" element={<StudentDashboard />} />
+          <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
+          
         </Routes>
       </div>
     </Router>
