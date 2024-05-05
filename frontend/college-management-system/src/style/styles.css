@@ -194,3 +194,83 @@ body, html {
 }
 
 
+.department-page {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.department-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.department-input {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.department-input:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+.department-submit {
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.department-submit:hover {
+    background-color: #0056b3;
+}
+
+.department-card {
+    margin-top: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+}
+
+.department-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.department-edit, .department-delete {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.department-edit {
+    background-color: #ffc107;
+    color: black;
+}
+
+.department-delete {
+    background-color: #dc3545;
+    color: white;
+    margin-left: 10px;
+}
+
+.department-edit:hover {
+    background-color: #e0a800;
+}
+
+.department-delete:hover {
+    background-color: #c82333;
+}
