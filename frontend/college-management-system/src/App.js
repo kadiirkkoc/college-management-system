@@ -6,6 +6,8 @@ import AdminDashboard from './components/dashboards/AdminDashboard';
 import StudentDashboard from './components/dashboards/StudentDashboard';
 import InstructorDashboard from './components/dashboards/InstructorDashboard';
 import FacultyDashboard from './components/pages/FacultyDashboard';
+import DepartmentDashboard from './components/pages/DepartmentDashboard';
+
 
 
 
@@ -17,7 +19,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
+            <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
+            <Route path="/department-dashboard" element={<DepartmentDashboard />} />
           <Route path="/student-dashboard" element={<StudentDashboard />} />
           <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
           
